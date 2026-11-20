@@ -1,0 +1,11 @@
+{
+  "name": "档位状态模板",
+  "version": 1,
+  "note": "信号 GrMod_stDrvAct 实测 9/9 样本存在，取值 {1,2,3,4}；语义 1-P / 2-R / 3-N / 4-D 由 Henry 给出。阈值均为实测枚举值，非臆造。",
+  "rules": [
+    { "name": "P档", "when": "GrMod_stDrvAct == 1", "min_duration_ms": 200, "hysteresis_ms": 50, "merge_gap_ms": 100, "mark": { "color": "#5F5E5A", "label": "P" } },
+    { "name": "R档", "when": "GrMod_stDrvAct == 2", "min_duration_ms": 200, "hysteresis_ms": 50, "merge_gap_ms": 100, "mark": { "color": "#BA7517", "label": "R" } },
+    { "name": "N档", "when": "GrMod_stDrvAct == 3", "min_duration_ms": 200, "hysteresis_ms": 50, "merge_gap_ms": 100, "mark": { "color": "#185FA5", "label": "N" } },
+    { "name": "D档", "when": "GrMod_stDrvAct == 4", "min_duration_ms": 200, "hysteresis_ms": 50, "merge_gap_ms": 100, "mark": { "color": "#0F6E56", "label": "D" } }
+  ]
+}

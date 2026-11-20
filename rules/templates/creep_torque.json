@@ -1,0 +1,11 @@
+{
+  "name": "蠕行扭矩链模板",
+  "version": 1,
+  "note": "信号名与阈值来自 P0 权威清单与九份样本实测。DrvReq_vCrpActSpdFil_MP 各文件最大值 0~68 km/h，取 >40 可区分（5 命中 / 4 不命中）。表达式是 numpy 表达式，布尔组合用 & 而非 Python and。",
+  "rules": [
+    { "name": "蠕行使能", "when": "DrvReq_bCrpTqEnad == 1", "min_duration_ms": 200, "hysteresis_ms": 50, "merge_gap_ms": 100, "mark": { "color": "#0F6E56", "label": "CrpEna" } },
+    { "name": "蠕行正扭矩请求", "when": "DrvReq_tqWhlCrpReq > 100", "min_duration_ms": 200, "hysteresis_ms": 50, "merge_gap_ms": 100, "mark": { "color": "#185FA5", "label": "CrpTq" } },
+    { "name": "高速蠕行段", "when": "DrvReq_vCrpActSpdFil_MP > 40", "min_duration_ms": 200, "hysteresis_ms": 50, "merge_gap_ms": 100, "mark": { "color": "#BA7517", "label": "HiCrpSpd" } },
+    { "name": "松踏板且蠕行使能", "when": "(AccP_percAccrPedl < 5) & (Brake_percBrkPedl < 5) & (DrvReq_bCrpTqEnad == 1)", "min_duration_ms": 200, "hysteresis_ms": 50, "merge_gap_ms": 100, "mark": { "color": "#993C1D", "label": "CrpIdle" } }
+  ]
+}

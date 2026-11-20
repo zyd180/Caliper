@@ -1,0 +1,11 @@
+{
+  "name": "道路负载与制动模板",
+  "version": 1,
+  "note": "阈值按九份样本实测分布重选：坡度各文件最小 -3.2~-10.9，取 <-8（2 命中 / 7 不命中）；制动各文件最大 37.6~83.7，取 >60（3 命中 / 6 不命中）；车速 -5.6~68，取 >30。原 <-3 / >10 在 9/9 文件全命中，无区分力，已废弃。组合规则实测：深坡度(<-8)时刻蠕行扭矩为负，全 9 份零命中，故组合条件保留 <-3（8 命中 / 1 不命中）；单条深坡度规则仍用 <-8。",
+  "rules": [
+    { "name": "深坡度段", "when": "VehV_percRoadSlop < -8", "min_duration_ms": 200, "hysteresis_ms": 50, "merge_gap_ms": 100, "mark": { "color": "#BA7517", "label": "Slope" } },
+    { "name": "强制动段", "when": "Brake_percBrkPedl > 60", "min_duration_ms": 200, "hysteresis_ms": 50, "merge_gap_ms": 100, "mark": { "color": "#A32D2D", "label": "Brake" } },
+    { "name": "中高速段", "when": "VehV_vVehDrvnSpd > 30", "min_duration_ms": 200, "hysteresis_ms": 50, "merge_gap_ms": 100, "mark": { "color": "#185FA5", "label": "HiSpd" } },
+    { "name": "坡度蠕行加载", "when": "(VehV_percRoadSlop < -3) & (DrvReq_tqWhlCrpReq > 100)", "min_duration_ms": 200, "hysteresis_ms": 50, "merge_gap_ms": 100, "mark": { "color": "#0F6E56", "label": "SlopeCrp" } }
+  ]
+}

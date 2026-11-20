@@ -1,0 +1,27 @@
+{
+  "name": "AccPedl",
+  "version": 4,
+  "note": "加速踏板多工况集",
+  "rules": [
+    {
+      "name": "未踩加速踏板",
+      "when": "AccP_percAccrPedl == 0",
+      "min_duration_ms": 10,
+      "hysteresis_ms": 10,
+      "merge_gap_ms": 10,
+      "mark": {
+        "label": "PedRls"
+      }
+    },
+    {
+      "name": "大油门",
+      "when": "AccP_percAccrPedl >= 50",
+      "min_duration_ms": 1000,
+      "hysteresis_ms": 50,
+      "merge_gap_ms": 100,
+      "mark": {
+        "label": "DeepPed"
+      }
+    }
+  ]
+}

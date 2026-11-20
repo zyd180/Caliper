@@ -1,0 +1,76 @@
+{
+  "name": "Pedl",
+  "version": 19,
+  "note": "加速&制动踏板工况规则集",
+  "rules": [
+    {
+      "name": "大油门",
+      "join": "any",
+      "conditions": [
+        {
+          "type": "value",
+          "signal": "VCU_1_G_AcceleratorPosRaw_ch1",
+          "op": ">=",
+          "threshold": 50
+        }
+      ],
+      "when": "VCU_1_G_AcceleratorPosRaw_ch1 >= 50",
+      "min_duration_ms": 10,
+      "hysteresis_ms": 50,
+      "merge_gap_ms": 100,
+      "mark": {
+        "label": "新"
+      }
+    },
+    {
+      "name": "大开大合",
+      "join": "all",
+      "conditions": [
+        {
+          "type": "swing",
+          "signal": "VCU_1_G_AcceleratorPosRaw_ch1",
+          "window_ms": 2000,
+          "threshold": 40
+        }
+      ],
+      "when": "",
+      "window": {
+        "signal": "VCU_1_G_AcceleratorPosRaw_ch1",
+        "kind": "swing",
+        "window_ms": 2000,
+        "threshold": 40
+      },
+      "min_duration_ms": 200,
+      "hysteresis_ms": 50,
+      "merge_gap_ms": 100,
+      "mark": {
+        "label": "新"
+      }
+    },
+    {
+      "name": "频繁制动",
+      "join": "all",
+      "conditions": [
+        {
+          "type": "changes",
+          "signal": "BrakePedalPressSts_ch1",
+          "window_ms": 2000,
+          "threshold": 3
+        }
+      ],
+      "when": "",
+      "window": {
+        "signal": "BrakePedalPressSts_ch1",
+        "kind": "changes",
+        "window_ms": 2000,
+        "threshold": 3
+      },
+      "min_duration_ms": 200,
+      "hysteresis_ms": 50,
+      "merge_gap_ms": 100,
+      "mark": {
+        "label": "新"
+      }
+    }
+  ]
+}

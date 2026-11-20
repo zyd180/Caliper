@@ -1,0 +1,10 @@
+{
+  "name": "能量回收等级模板",
+  "version": 1,
+  "note": "Henry 确认 CstMod_stCoastRgnMod 是回收等级配置量，不主动调节就一直是固定值。恒值不是数据缺陷，而是标定了本次试验全程所处的回收等级；实测 3/9 样本存在且恒为 2（其余 6 份未采集，按 v6 三态记为未评估）。此类规则声明 kind=config，按配置型验收：不要求跨文件命中/不命中区分，改用变体用例证明规则确实在求值。若要看等级切换过程，仍需含主动调节的录制数据。",
+  "rules": [
+    { "name": "回收等级2", "when": "CstMod_stCoastRgnMod == 2", "kind": "config", "min_duration_ms": 200, "hysteresis_ms": 50, "merge_gap_ms": 100, "mark": { "color": "#0F6E56", "label": "Rgn2" } },
+    { "name": "回收等级1对照", "when": "CstMod_stCoastRgnMod == 1", "kind": "config", "min_duration_ms": 200, "hysteresis_ms": 50, "merge_gap_ms": 100, "mark": { "color": "#185FA5", "label": "Rgn1" } },
+    { "name": "回收等级3对照", "when": "CstMod_stCoastRgnMod == 3", "kind": "config", "min_duration_ms": 200, "hysteresis_ms": 50, "merge_gap_ms": 100, "mark": { "color": "#BA7517", "label": "Rgn3" } }
+  ]
+}

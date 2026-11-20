@@ -1,0 +1,73 @@
+{
+  "name": "蠕行扭矩工况",
+  "version": 8,
+  "note": "蠕行工况规则集",
+  "rules": [
+    {
+      "name": "蠕行扭矩请求偏高",
+      "when": "DrvReq_tqWhlCrpReq > 1000",
+      "min_duration_ms": 200,
+      "hysteresis_ms": 50,
+      "merge_gap_ms": 100,
+      "mark": {
+        "color": "#993C1D",
+        "label": "CreepTq"
+      }
+    },
+    {
+      "name": "蠕行使能",
+      "when": "DrvReq_bCrpTqEnad == 1",
+      "min_duration_ms": 200,
+      "hysteresis_ms": 50,
+      "merge_gap_ms": 100,
+      "mark": {
+        "label": "CrpEna"
+      }
+    },
+    {
+      "name": "蠕行不使能",
+      "when": "DrvReq_bCrpTqEnad == 0",
+      "min_duration_ms": 200,
+      "hysteresis_ms": 50,
+      "merge_gap_ms": 100,
+      "mark": {
+        "label": "CrpDisabl"
+      }
+    },
+    {
+      "name": "蠕行正扭矩请求",
+      "when": "DrvReq_tqWhlCrpReq >= 10",
+      "min_duration_ms": 200,
+      "hysteresis_ms": 50,
+      "merge_gap_ms": 100,
+      "mark": {
+        "label": "CrpTq+"
+      }
+    },
+    {
+      "name": "蠕行负扭矩请求",
+      "when": "DrvReq_tqWhlCrpReq <= 10",
+      "min_duration_ms": 200,
+      "hysteresis_ms": 50,
+      "merge_gap_ms": 100,
+      "mark": {
+        "label": "CrpTq-"
+      }
+    },
+    {
+      "name": "蠕行起步",
+      "when": "(AccP_percAccrPedl == 0) & (VehV_vVehDrvnSpd == 0) & (Brake_percBrkPedl == 0)",
+      "min_duration_ms": 200,
+      "hysteresis_ms": 50,
+      "merge_gap_ms": 100,
+      "transition": {
+        "signal": "DrvReq_bCrpTqEnad",
+        "from": 0,
+        "to": 1
+      },
+      "mark": {
+        "label": "RunA"
+      }
+    }
+  ]
+}

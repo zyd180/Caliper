@@ -1,0 +1,24 @@
+# 公司/个人真实数据（隐私要求，绝不入库）
+realdata/
+DBC/
+description/
+
+# 打包产物与缓存
+dist/
+build/
+*.spec.bak
+__pycache__/
+*.py[cod]
+
+# 运行时产物、证据、备份、验证日志
+out/
+*.bak
+*.log
+*.tmp
+
+# 开发日志（含内部路径与踩坑细节，不公开）
+HANDOFF.md
+plan.md
+
+# WorkBuddy 项目数据
+.workbuddy/

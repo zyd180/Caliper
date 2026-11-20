@@ -1,0 +1,11 @@
+{
+  "name": "整车状态机模板",
+  "version": 1,
+  "note": "ESC_stEPB 实测 {1,2,3,4}；VeMod_bDrvrInput 与 CoPOM_bDrvRdy 实测 {0,1} 且九份文件都出现过 1，单靠取值无法区分。改用持续时长定义稳定工况：DrvIn 各文件最长连续 1.2~253.8s，取 30s；Rdy 最长 21.0~2274s，取 60s。恒定常量信号不入模板。",
+  "rules": [
+    { "name": "EPB状态1", "when": "ESC_stEPB == 1", "min_duration_ms": 200, "hysteresis_ms": 50, "merge_gap_ms": 100, "mark": { "color": "#5F5E5A", "label": "EPB1" } },
+    { "name": "EPB状态4", "when": "ESC_stEPB == 4", "min_duration_ms": 200, "hysteresis_ms": 50, "merge_gap_ms": 100, "mark": { "color": "#993C1D", "label": "EPB4" } },
+    { "name": "驾驶员持续输入", "when": "VeMod_bDrvrInput == 1", "min_duration_ms": 30000, "hysteresis_ms": 50, "merge_gap_ms": 100, "mark": { "color": "#185FA5", "label": "DrvIn" } },
+    { "name": "驱动持续就绪", "when": "CoPOM_bDrvRdy == 1", "min_duration_ms": 60000, "hysteresis_ms": 50, "merge_gap_ms": 100, "mark": { "color": "#0F6E56", "label": "Rdy" } }
+  ]
+}

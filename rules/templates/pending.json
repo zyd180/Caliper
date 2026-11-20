@@ -1,0 +1,23 @@
+{
+  "name": "待补领域模板清单",
+  "version": 1,
+  "enabled": false,
+  "note": "只记录当前样本确实无法建模的领域与所需数据，不生成假规则。验证工具会跳过本文件。能量回收已按 Henry 的说明建模为配置型等级模板，见 regen_level.json。",
+  "resolved_domains": [
+    {
+      "domain": "能量回收",
+      "resolution": "CstMod_stCoastRgnMod 是回收等级配置量，恒值属正常语义；已生成 rules/templates/regen_level.json 的配置型规则",
+      "remaining_need": "若需观察等级切换过程，需要含主动调节回收等级的录制数据（当前样本全程等级 2）"
+    }
+  ],
+  "pending_domains": [
+    {
+      "domain": "故障位",
+      "candidate_signals": [
+        { "name": "VehMotRA_bCrpTqInh", "present": "9/9", "observed_values": [0.0], "varying_within_file": "0/9", "verdict": "健康样本中恒 0，无故障触发" },
+        { "name": "ESC_bAVHFailSts", "present": "9/9", "observed_values": [0.0], "varying_within_file": "0/9", "verdict": "健康样本中恒 0，无故障触发" }
+      ],
+      "need": "需要含故障注入或异常工况的录制数据；当前健康数据里故障位不会置位"
+    }
+  ]
+}

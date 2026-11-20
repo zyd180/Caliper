@@ -1,0 +1,123 @@
+{
+  "name": "MF4_Recorder",
+  "version": 1,
+  "note": "基于 realdata/Recorder_2026-07-29_09-59-14.MF4 实际信号编写的验证规则集。信号：VLC_percAccrPedl(油门%), EM3_tqMotReq(电机3扭矩Nm), TqMgr_stPtModAct(动力模式 2/4)。阈值取自该样本实测分位数。",
+  "rules": [
+    {
+      "name": "大油门",
+      "join": "all",
+      "conditions": [
+        {
+          "type": "value",
+          "signal": "VLC_percAccrPedl",
+          "op": ">=",
+          "threshold": 50
+        }
+      ],
+      "when": "VLC_percAccrPedl >= 50",
+      "min_duration_ms": 200,
+      "hysteresis_ms": 50,
+      "merge_gap_ms": 100,
+      "mark": {
+        "label": "Ped50"
+      }
+    },
+    {
+      "name": "松油门",
+      "join": "all",
+      "conditions": [
+        {
+          "type": "value",
+          "signal": "VLC_percAccrPedl",
+          "op": "==",
+          "threshold": 0
+        }
+      ],
+      "when": "VLC_percAccrPedl == 0",
+      "min_duration_ms": 200,
+      "hysteresis_ms": 50,
+      "merge_gap_ms": 100,
+      "mark": {
+        "label": "Ped0"
+      }
+    },
+    {
+      "name": "EM3大扭矩请求",
+      "join": "all",
+      "conditions": [
+        {
+          "type": "value",
+          "signal": "EM3_tqMotReq",
+          "op": ">",
+          "threshold": 100
+        }
+      ],
+      "when": "EM3_tqMotReq > 100",
+      "min_duration_ms": 100,
+      "hysteresis_ms": 20,
+      "merge_gap_ms": 100,
+      "mark": {
+        "label": "TqHi"
+      }
+    },
+    {
+      "name": "EM3回收扭矩",
+      "join": "all",
+      "conditions": [
+        {
+          "type": "value",
+          "signal": "EM3_tqMotReq",
+          "op": "<",
+          "threshold": -50
+        }
+      ],
+      "when": "EM3_tqMotReq < -50",
+      "min_duration_ms": 100,
+      "hysteresis_ms": 20,
+      "merge_gap_ms": 100,
+      "mark": {
+        "label": "TqRgn"
+      }
+    },
+    {
+      "name": "动力模式切2",
+      "when": "",
+      "min_duration_ms": 0,
+      "hysteresis_ms": 0,
+      "merge_gap_ms": 0,
+      "transition": {
+        "signal": "TqMgr_stPtModAct",
+        "from": 4,
+        "to": 2
+      },
+      "mark": {
+        "label": "Mode2"
+      }
+    },
+    {
+      "name": "油门大开大合",
+      "join": "all",
+      "conditions": [
+        {
+          "type": "swing",
+          "signal": "VLC_percAccrPedl",
+          "window_ms": 2000,
+          "threshold": 30
+        }
+      ],
+      "when": "",
+      "window": {
+        "signal": "VLC_percAccrPedl",
+        "kind": "swing",
+        "window_ms": 2000,
+        "threshold": 30
+      },
+      "min_duration_ms": 200,
+      "hysteresis_ms": 50,
+      "merge_gap_ms": 100,
+      "mark": {
+        "label": "Swing"
+      }
+    }
+  ]
+}

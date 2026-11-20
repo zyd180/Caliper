@@ -1,0 +1,51 @@
+{
+  "name": "BLF 档位工况",
+  "version": 2,
+  "note": "档位工况规则集",
+  "rules": [
+    {
+      "name": "P档",
+      "when": "VCU_1_G_PRNDGearAct_ch1 == 1",
+      "min_duration_ms": 200,
+      "hysteresis_ms": 50,
+      "merge_gap_ms": 100,
+      "mark": {
+        "color": "#5F5E5A",
+        "label": "P"
+      }
+    },
+    {
+      "name": "R档",
+      "when": "VCU_1_G_PRNDGearAct_ch1 == 2",
+      "min_duration_ms": 200,
+      "hysteresis_ms": 50,
+      "merge_gap_ms": 100,
+      "mark": {
+        "color": "#7A2340",
+        "label": "R"
+      }
+    },
+    {
+      "name": "N档",
+      "when": "VCU_1_G_PRNDGearAct_ch1 == 3",
+      "min_duration_ms": 200,
+      "hysteresis_ms": 50,
+      "merge_gap_ms": 100,
+      "mark": {
+        "color": "#24556B",
+        "label": "N"
+      }
+    },
+    {
+      "name": "D档",
+      "when": "VCU_1_G_PRNDGearAct_ch1 == 4",
+      "min_duration_ms": 200,
+      "hysteresis_ms": 50,
+      "merge_gap_ms": 100,
+      "mark": {
+        "color": "#4E6E23",
+        "label": "D"
+      }
+    }
+  ]
+}
